@@ -10,8 +10,30 @@ This project demonstrates several fundamental concepts in Go programming languag
 - In this code, the `Area` interface requires two methods:
   ```go
   type Area interface {
-      Area() float32
+      Area() (float32, error)
       Introduce() string
+  }
+  ```
+
+### 2. Error Handling
+
+- Go uses explicit error handling through the `error` interface
+- Methods can return both a value and an error
+- Example of error handling in the code:
+  ```go
+  func (c Circle) Area() (float32, error) {
+      if c.radius < 0 {
+          return 0, errors.New("radius must be positive")
+      }
+      return PI * c.radius * c.radius, nil
+  }
+  ```
+- The main function demonstrates error handling:
+  ```go
+  area, error := shape.Area()
+  if error != nil {
+      fmt.Println("Error: ", error)
+      return
   }
   ```
 
